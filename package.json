@@ -1,0 +1,13 @@
+{
+  "name": "turbo-todo",
+  "version": "0.0.1",
+  "description": "A sample todo application build using Turbo",
+  "main": "index.js",
+  "repository": "git@github.com:pendar747/turbo-todo.git",
+  "author": "pendar747",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "turbo": "../turbo"
+  }
+}
