@@ -8,6 +8,10 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "mobx": "^5.15.4",
     "turbo": "../turbo"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
   }
 }

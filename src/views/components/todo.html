@@ -3,8 +3,8 @@
     <h3>{title}</h3>
     <p>{description}</p>
     <label><input type="checkbox" name="done">Done</label>
-    <button>edit</button>
-    <button>delete</button>
+    <button data-bind="click:edit-todo">edit</button>
+    <button data-bind="click:delete-todo">delete</button>
   </div>
 </template>
 
