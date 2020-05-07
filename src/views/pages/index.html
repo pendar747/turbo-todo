@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <a href="/pages/index.html">Home</a>
+    <a href="/pages/list.html">list</a>
+    <a href="./about.html">About</a>
+  </div>
+  <tb-page>
+    <h1>Welcome to my awesome Todo app, powered by Turbo.</h1>
+    <tb-form data-bind="submit:addNewTodo" model="newTodo">
+      <input name="title" type="text" data-bind="keyup:newTodoChange">
+      <textarea name="description" cols="30" rows="10"></textarea>
+      <button type="submit">Add</button>
+    </tb-form>
+    <div>
+      <h2>Todos:</h2>
+      <tb-render model="todos" template="todo"></tb-render>
+      <button data-bind="click:edit-todo">edit</button>
+    </div>
+    <button data-bind="click:markAllAsDone">Mark all as done</button>
+  </tb-page>
+</body>
+</html>
