@@ -13,6 +13,9 @@ export default class Todo {
   @observable
   isEditing: boolean = false;
 
+  @observable
+  isDeleted: boolean = false;
+
   @action
   editTodo ({ title, description, isDone }: { title?: string, description?: string, isDone?: boolean }) {
     this.title = title ?? this.title;
@@ -28,6 +31,11 @@ export default class Todo {
   @action 
   cancelEditing () {
     this.isDone = false;
+  }
+
+  @action 
+  delteTodo () {
+    this.isDeleted = true;
   }
   
   constructor (title: string = '', description: string = '') {

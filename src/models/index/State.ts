@@ -1,6 +1,6 @@
-import { observable, action } from 'mobx';
-import Todo from '../Todo';
+import { observable, action, computed } from 'mobx';
 
+import Todo from '../Todo';
 
 class State {
   @observable
@@ -9,14 +9,25 @@ class State {
   @observable
   todos: Todo[] = [];
 
-  @action
-  addNewTodo ({ title, description }: { title: string, description: string }) {
-    this.todos.push(new Todo(title, description));
+  @computed
+  get deletedTodos () {
+    return this.todos.filter(todo => todo.isDeleted);
+  }
+
+  @computed
+  get visibleTodos () {
+    return this.todos.filter(todo => !todo.isDeleted);
   }
 
   @action
-  deleteTodo (index: number) {
-    this.todos = this.todos.filter((_, i) => i !== index);
+  clearDeletedTodos () {
+    this.todos = this.visibleTodos;
+  }
+
+  @action
+  addNewTodo ({ title, description }: { title: string, description: string }) {
+    const todo = new Todo(title, description);
+    this.todos.push(todo);
   }
 
   @action

@@ -7,9 +7,9 @@
 </head>
 <body>
   <div>
-    <a href="/pages/index.html">Home</a>
-    <a href="/pages/list.html">list</a>
-    <a href="./about.html">About</a>
+    <a href="/index">Home</a>
+    <a href="/list">list</a>
+    <a href="/about">About</a>
   </div>
   <tb-page>
     <h1>Welcome to my awesome Todo app, powered by Turbo.</h1>
@@ -19,8 +19,12 @@
       <button type="submit">Add</button>
     </tb-form>
     <div>
+      <a href="/visible-todos">List</a>
+      <a href="/deleted-todos">Deleted</a>
+    </div>
+    <div>
       <h2>Todos:</h2>
-      <tb-render model="todos" template="todo"></tb-render>
+      <tb-page></tb-page>
     </div>
     <button data-action="click:toggleAll">Mark all as done</button>
   </tb-page>
