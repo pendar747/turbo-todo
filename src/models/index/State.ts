@@ -1,20 +1,6 @@
 import { observable, action } from 'mobx';
+import Todo from '../Todo';
 
-class Todo {
-  @observable
-  title: String = '';
-
-  @observable
-  description: String = '';
-
-  @observable
-  isDone: boolean = false;
-
-  constructor (title: string = '', description: string = '') {
-    this.title = title;
-    this.description = description;
-  }
-}
 
 class State {
   @observable
@@ -24,13 +10,18 @@ class State {
   todos: Todo[] = [];
 
   @action
-  addNewTodo (title: string, description: string) {
+  addNewTodo ({ title, description }: { title: string, description: string }) {
     this.todos.push(new Todo(title, description));
   }
 
   @action
   deleteTodo (index: number) {
     this.todos = this.todos.filter((_, i) => i !== index);
+  }
+
+  @action
+  toggleAll () {
+    this.todos.forEach(todo => todo.editTodo({ isDone: !todo.isDone }));
   }
 }
 

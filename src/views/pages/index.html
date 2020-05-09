@@ -13,17 +13,16 @@
   </div>
   <tb-page>
     <h1>Welcome to my awesome Todo app, powered by Turbo.</h1>
-    <tb-form data-bind="submit:addNewTodo" model="newTodo">
-      <input name="title" type="text" data-bind="keyup:newTodoChange">
+    <tb-form data-action="submit:addNewTodo" model="newTodo">
+      <input name="title" type="text" data-action="keyup:newTodoChange">
       <textarea name="description" cols="30" rows="10"></textarea>
       <button type="submit">Add</button>
     </tb-form>
     <div>
       <h2>Todos:</h2>
       <tb-render model="todos" template="todo"></tb-render>
-      <button data-bind="click:edit-todo">edit</button>
     </div>
-    <button data-bind="click:markAllAsDone">Mark all as done</button>
+    <button data-action="click:toggleAll">Mark all as done</button>
   </tb-page>
 </body>
 </html>

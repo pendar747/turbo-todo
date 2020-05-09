@@ -3,22 +3,22 @@
     <h3>{title}</h3>
     <p>{description}</p>
     <label><input type="checkbox" name="done">Done</label>
-    <button data-bind="click:edit-todo">edit</button>
-    <button data-bind="click:delete-todo">delete</button>
+    <button data-action="click:setEditing">edit</button>
+    <button data-action="click:deleteTodo">delete</button>
   </div>
 </template>
 
 <template id="preview-todo">
-  <tb-form model="{model}">
+  <tb-form>
     <input type="text" name="title">
     <textarea name="description" cols="30" rows="10"></textarea>
-    <label><input type="checkbox" name="done">Done</label>
-    <button data-bind="click:cancelSubmit">Cancel</button>
+    <label><input type="checkbox" name="isDone">Done</label>
+    <button data-action="click:cancelEditing">Cancel</button>
     <button type="submit">Apply</button>
   </tb-form>
 </template>
 
 <template id="todo">
-  <tb-render if-value="{isPreview}" template="preview-todo" model="{model}"></tb-if>
-  <tb-render if-value="{isEditing}" template="edit-todo" model="{model}"></tb-if>
+  <tb-render if-value="{isPreview}" template="preview-todo"></tb-if>
+  <tb-render if-value="{isEditing}" template="edit-todo"></tb-if>
 </template>
