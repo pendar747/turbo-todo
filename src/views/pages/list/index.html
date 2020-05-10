@@ -1,7 +1,7 @@
 <template id="list">
   <div>
-    <a href="/visible-todos">List</a>
-    <a href="/deleted-todos">Deleted</a>
+    <a href="/list/{id}">List</a>
+    <a href="/list/{id}/deleted-todos">Deleted</a>
   </div>
   <div>
     <tb-form data-action="submit:list.addNewTodo" model="list.newTodo">
@@ -12,6 +12,9 @@
     <h2>Todos:</h2>
     <button data-action="click:toggleAll">All</button>
     <button data-action="click:deleteList">delete</button>
-    <tb-page></tb-page>
+    <tb-page>
+      <h2>List</h2>
+      <tb-render model="list.visibleTodos" template="todo"></tb-render>
+    </tb-page>
   </div>
 </template>

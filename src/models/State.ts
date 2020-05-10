@@ -7,6 +7,9 @@ import storage from './storage';
 export default class IndexState {
   @observable
   lists: TodoList[] = [];
+  
+  @observable
+  list: TodoList|null = null;
 
   @action
   async addTodoList ({ name, description }: { name: string, description: string }) {
@@ -18,6 +21,18 @@ export default class IndexState {
     });
     this.lists.push(list)
     await storage.addList(list);
+  }
+  
+  @action
+  async init({ path, param: id }: { path: string, param: string }) {
+    if (path.indexOf('/list') == 0) {
+      const listProps = await storage.getList(id);
+      if (listProps) {
+        this.list = new TodoList(listProps);
+      }
+    }
+    const lists = await storage.getAllLists();
+    this.lists = lists;
   }
 
   @computed
