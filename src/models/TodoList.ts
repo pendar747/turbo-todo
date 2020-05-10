@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, autorun } from "mobx";
 import Todo from "./Todo";
 import uuid from 'uuid';
 import { IList } from "./types";
@@ -20,6 +20,9 @@ export default class TodoList {
   @observable
   date: Date;
 
+  @observable
+  isDeleted: boolean = false;
+
   id: string;
 
   constructor (props: IList) {
@@ -27,6 +30,9 @@ export default class TodoList {
     this.id = uuid.v4();
     this.description = props.description;
     this.date = props.date; 
+    autorun(() => {
+      storage.updateList(this.id, this);
+    });
   }
 
   @computed
@@ -48,11 +54,15 @@ export default class TodoList {
   addNewTodo ({ title, description }: { title: string, description: string }) {
     const todo = new Todo({ title, description, date: new Date(), id: uuid.v4() });
     this.todos.push(todo);
-    storage.addTodo(this.id, todo);
   }
 
   @action
   toggleAll () {
     this.todos.forEach(todo => todo.editTodo({ isDone: !todo.isDone }));
+  }
+
+  @action
+  deleteList () {
+    this.isDeleted = true;
   }
 }
