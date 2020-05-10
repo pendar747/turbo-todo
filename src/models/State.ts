@@ -32,7 +32,7 @@ export default class IndexState {
       }
     }
     const lists = await storage.getAllLists();
-    this.lists = lists;
+    this.lists = lists.map(props => new TodoList(props));
   }
 
   @computed
