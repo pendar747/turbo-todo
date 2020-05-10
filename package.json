@@ -8,8 +8,11 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "@types/uuid": "^7.0.3",
+    "idb": "^5.0.2",
     "mobx": "^5.15.4",
-    "turbo": "../turbo"
+    "turbo": "../turbo",
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
     "typescript": "^3.8.3"

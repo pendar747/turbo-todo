@@ -1,11 +1,12 @@
 import { observable, action } from "mobx";
+import { ITodo } from "./types";
 
 export default class Todo {
   @observable
-  title: String = '';
+  title: string = '';
 
   @observable
-  description: String = '';
+  description: string = '';
 
   @observable
   isDone: boolean = false;
@@ -15,6 +16,11 @@ export default class Todo {
 
   @observable
   isDeleted: boolean = false;
+
+  @observable
+  date: Date;
+
+  id: string;
 
   @action
   editTodo ({ title, description, isDone }: { title?: string, description?: string, isDone?: boolean }) {
@@ -34,12 +40,14 @@ export default class Todo {
   }
 
   @action 
-  delteTodo () {
+  deleteTodo () {
     this.isDeleted = true;
   }
   
-  constructor (title: string = '', description: string = '') {
-    this.title = title;
-    this.description = description;
+  constructor (props: ITodo) {
+    this.title = props.title;
+    this.description = props.description;
+    this.id = props.id;
+    this.date = props.date;
   }
 }
