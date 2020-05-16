@@ -3,8 +3,8 @@
     <h3>{title}</h3>
     <p>{description}</p>
     <label><input type="checkbox" name="done">Done</label>
-    <button data-action="click:setEditing">edit</button>
-    <button data-action="click:deleteTodo">delete</button>
+    <button tb-action="click:setEditing">edit</button>
+    <button tb-action="click:deleteTodo">delete</button>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
     <input type="text" name="title">
     <textarea name="description" cols="30" rows="10"></textarea>
     <label><input type="checkbox" name="isDone">Done</label>
-    <button data-action="click:cancelEditing">Cancel</button>
+    <button tb-action="click:cancelEditing">Cancel</button>
     <button type="submit">Apply</button>
   </tb-form>
 </template>

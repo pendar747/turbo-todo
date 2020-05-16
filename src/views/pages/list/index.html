@@ -4,14 +4,14 @@
     <a href="/list/{id}/deleted-todos">Deleted</a>
   </div>
   <div>
-    <tb-form data-action="submit:list.addNewTodo" model="list.newTodo">
-      <input name="title" type="text" data-action="keyup:newTodoChange">
+    <tb-form tb-action="submit:list.addNewTodo" model="list.newTodo">
+      <input name="title" type="text" tb-action="keyup:newTodoChange">
       <textarea name="description" cols="30" rows="10"></textarea>
       <button type="submit">Add</button>
     </tb-form>
     <h2>Todos:</h2>
-    <button data-action="click:toggleAll">All</button>
-    <button data-action="click:deleteList">delete</button>
+    <button tb-action="click:toggleAll">All</button>
+    <button tb-action="click:deleteList">delete</button>
     <tb-page>
       <h2>List</h2>
       <tb-render model="list.visibleTodos" template="todo"></tb-render>
