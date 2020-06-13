@@ -19,6 +19,6 @@
 </template>
 
 <template id="todo">
-  <tb-render if-value="{isPreview}" template="preview-todo"></tb-if>
-  <tb-render if-value="{isEditing}" template="edit-todo"></tb-if>
+  <tb-render if="isPreview" template="preview-todo"></tb-if>
+  <tb-render if="isEditing" template="edit-todo"></tb-if>
 </template>

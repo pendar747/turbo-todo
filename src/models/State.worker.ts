@@ -3,7 +3,9 @@ import uuid from 'uuid';
 
 import TodoList from './TodoList';
 import storage from './storage';
+import { registerState } from '@pendar/turbo/src/modelAdapters/mobX/index';
 
+@registerState('main')
 export default class IndexState {
   @observable
   lists: TodoList[] = [];
