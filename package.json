@@ -16,7 +16,7 @@
     "@types/uuid": "^7.0.3",
     "idb": "^5.0.2",
     "mobx": "^5.15.4",
-    "uuid": "^8.0.0"
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^6.0.2",

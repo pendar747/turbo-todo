@@ -1,12 +1,10 @@
 import { observable, action, computed, autorun } from "mobx";
 import Todo from "./Todo";
-import uuid from 'uuid';
 import { IList } from "./types";
-import storage from "./storage";
 
 export default class TodoList {
   @observable
-  newTodo: Todo = new Todo({ title: '', description: '', date: new Date(), id: uuid.v4() });
+  newTodo: Todo = new Todo({ title: '', description: '', date: new Date(), id: '' });
 
   @observable
   todos: Todo[] = [];
@@ -27,12 +25,9 @@ export default class TodoList {
 
   constructor (props: IList) {
     this.name = props.name;
-    this.id = uuid.v4();
+    this.id = props.id;
     this.description = props.description;
     this.date = props.date; 
-    autorun(() => {
-      storage.updateList(this.id, this);
-    });
   }
 
   @computed
@@ -52,7 +47,7 @@ export default class TodoList {
 
   @action
   addNewTodo ({ title, description }: { title: string, description: string }) {
-    const todo = new Todo({ title, description, date: new Date(), id: uuid.v4() });
+    const todo = new Todo({ title, description, date: new Date(), id: this.todos.length.toString() });
     this.todos.push(todo);
   }
 
