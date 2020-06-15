@@ -30,6 +30,11 @@ export default class Todo {
   }
 
   @action
+  toggleDone () {
+    this.isDone = !this.isDone;
+  }
+
+  @action
   setEdit () {
     this.isDone = true;
   }
@@ -46,7 +51,6 @@ export default class Todo {
   
   constructor (props: ITodo) {
     this.title = props.title;
-    this.description = props.description;
     this.id = props.id;
     this.date = props.date;
   }

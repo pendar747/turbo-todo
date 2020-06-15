@@ -4,7 +4,7 @@ import { IList } from "./types";
 
 export default class TodoList {
   @observable
-  newTodo: Todo = new Todo({ title: '', description: '', date: new Date(), id: '' });
+  newTitle = '';
 
   @observable
   todos: Todo[] = [];
@@ -21,13 +21,19 @@ export default class TodoList {
   @observable
   isDeleted: boolean = false;
 
+  @observable
+  isSelected: boolean = false;
+
   id: string;
 
-  constructor (props: IList) {
+  select: (list: TodoList) => void;
+
+  constructor (props: IList, select: (list: TodoList) => void) {
     this.name = props.name;
     this.id = props.id;
     this.description = props.description;
     this.date = props.date; 
+    this.select = select;
   }
 
   @computed
@@ -41,13 +47,20 @@ export default class TodoList {
   }
 
   @action
+  viewList () {
+    this.select(this);
+  }
+
+  @action
   clearDeletedTodos () {
     this.todos = this.visibleTodos;
   }
 
   @action
-  addNewTodo ({ title, description }: { title: string, description: string }) {
-    const todo = new Todo({ title, description, date: new Date(), id: this.todos.length.toString() });
+  addNewTodo ({ newTitle }: { newTitle: string }) {
+    console.log('addNewTodo', { newTitle });
+    this.newTitle = '';
+    const todo = new Todo({ title: newTitle, date: new Date(), id: this.todos.length.toString() });
     this.todos.push(todo);
   }
 

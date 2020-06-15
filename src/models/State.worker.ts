@@ -1,46 +1,66 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, autorun } from 'mobx';
 
 import TodoList from './TodoList';
 import { registerState } from '@pendar/turbo/src/modelAdapters/mobX/index';
 
-@registerState('main')
-export default class IndexState {
+class ListCollection {
   @observable
-  lists: TodoList[] = [];
-  
-  @observable
-  list: TodoList|null = null;
+  name = '';
 
   @observable
-  author = {
-    name: 'Pendar'
-  };
+  description = '';
+
+  @observable
+  allLists: TodoList[] = [];
 
   @action
   async addTodoList ({ name, description }: { name: string, description: string }) {
     console.log('recieved action', { name, description });
+    const select = (list: TodoList) => {
+      this.allLists.forEach(list => { 
+        list.isSelected = false 
+      });
+      list.isSelected = true;
+    }
     const list = new TodoList({ 
       name, 
-      id: this.lists.length.toString(), 
+      id: this.allLists.length.toString(), 
       date: new Date(), 
       todos: [],
       description
-    });
-    this.lists.push(list)
+    }, select);
+    this.allLists.push(list)
+    this.description = '';
+    this.name = '';
   }
   
   @computed
   get visibleLists () {
-    return this.lists.filter(list => !list.isDeleted);
+    return this.allLists.filter(list => !list.isDeleted);
   }
   
   @computed
   get deletedLists () {
-    return this.lists.filter(list => list.isDeleted);
+    return this.allLists.filter(list => list.isDeleted);
   }
 
   @action
   async clearAlDeletedLists () {
-    this.lists = this.visibleLists;
+    this.allLists = this.visibleLists;
   }
+
+  @computed
+  get selectedList () {
+    return this.allLists.find(list => list.isSelected);
+  }
+}
+
+@registerState('main')
+export default class IndexState {
+  
+  @observable
+  lists: ListCollection = new ListCollection();
+
+  @observable
+  list: TodoList|null = null;    
 }

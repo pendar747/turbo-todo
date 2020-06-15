@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "build": "rm -rf dist && webpack --config ./webpack.config.js",
-    "start": "cd dist && static-server -o -p 9090 -i views/pages/index.html"
+    "start": "cd dist && static-server -o -p 9090 -i views/index.html"
   },
   "dependencies": {
     "@pendar/turbo": "^0.0.1",
