@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rm -rf dist && webpack --config ./webpack.config.js",
-    "start": "cd dist && static-server -o -p 9090 -i views/index.html"
+    "build": "webpack --config ./webpack.config.js",
+    "start": "webpack-dev-server --watch"
   },
   "dependencies": {
     "@pendar/turbo": "^0.0.1",
@@ -19,12 +19,13 @@
     "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^6.0.2",
+    "html-webpack-plugin": "^4.3.0",
     "static-server": "^2.2.1",
     "ts-loader": "^7.0.5",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0",
     "worker-loader": "^2.0.0"
   }
 }

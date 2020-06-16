@@ -1,19 +1,21 @@
 const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = [{
   entry: './src/index.ts',
   mode: 'development',
   devtool: 'inline-source-map',
+  devServer: {
+    compress: true,
+    port: 9000,
+    open: true,
+    index: 'index.html',
+    contentBase: path.join(__dirname, 'dist'),
+    hot: true
+  },
   plugins: [
-    new CopyPlugin({
-      patterns: [
-        { 
-          context: 'src/views', 
-          from: '**/*', 
-          to: path.resolve(__dirname, 'dist/views') 
-        },
-      ],
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
     })
   ],
   module: {
@@ -33,7 +35,7 @@ module.exports = [{
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    filename: 'index.js',
+    filename: '[hash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   }
 }];
