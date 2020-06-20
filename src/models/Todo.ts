@@ -18,15 +18,17 @@ export default class Todo {
   isDeleted: boolean = false;
 
   @observable
+  draftTitle: string = '';
+
+  @observable
   date: Date;
 
   id: string;
 
   @action
-  editTodo ({ title, description, isDone }: { title?: string, description?: string, isDone?: boolean }) {
-    this.title = title ?? this.title;
-    this.description = description ?? this.description;
-    this.isDone = isDone ?? this.isDone;
+  editTodo () {
+    this.title = this.draftTitle;
+    this.isEditing = false;
   }
 
   @action
@@ -35,13 +37,19 @@ export default class Todo {
   }
 
   @action
-  setEdit () {
-    this.isDone = true;
+  setDraftTitle ({ value }: { value: string }) {
+    this.draftTitle = value ?? '';
+  }
+
+  @action
+  setEditing () {
+    this.draftTitle = this.title;
+    this.isEditing = true;
   }
 
   @action 
   cancelEditing () {
-    this.isDone = false;
+    this.isEditing = false;
   }
 
   @action 

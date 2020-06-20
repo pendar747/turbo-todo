@@ -14,8 +14,7 @@ class ListCollection {
   allLists: TodoList[] = [];
 
   @action
-  async addTodoList ({ name, description }: { name: string, description: string }) {
-    console.log('recieved action', { name, description });
+  async addTodoList () {
     const select = (list: TodoList) => {
       this.allLists.forEach(list => { 
         list.isSelected = false 
@@ -23,15 +22,25 @@ class ListCollection {
       list.isSelected = true;
     }
     const list = new TodoList({ 
-      name, 
+      name: this.name, 
       id: this.allLists.length.toString(), 
       date: new Date(), 
       todos: [],
-      description
+      description: this.description
     }, select);
     this.allLists.push(list)
     this.description = '';
     this.name = '';
+  }
+
+  @action
+  setName ({ value }: { value: string }) {
+    this.name = value ?? '';
+  }
+  
+  @action
+  setDescription ({ value }: { value: string }) {
+    this.description = value ?? '';
   }
   
   @computed

@@ -6,46 +6,27 @@
   <title>Turbo Todo</title>
 </head>
 <body state="main">
-  <style>
-    .input-form {
-      display: flex;
-      flex-direction: column;
-    }
-    .input-form * {
-      margin-bottom: 10px;
-    }
-    
-    #content {
-      display: flex;
-    }
-
-    #left-panel {
-      min-width: 400px;
-      margin-right: 20px;
-    }
-
-    #right-panel {
-      min-width: 500px;
-    }
-  </style>
   
   <template id="edit-todo">
-    <tb-form>
-      <input type="text" name="title">
-      <textarea name="description" cols="30" rows="10"></textarea>
-      <label><input type="checkbox" name="isDone">Done</label>
+    <div>
+      <input tb-bind-prop="draftTitle:value" tb-action="keyup:setDraftTitle" type="text" name="title">
       <button tb-action="click:cancelEditing">Cancel</button>
-      <button type="submit">Apply</button>
-    </tb-form>
+      <button tb-action="click:editTodo" type="submit">Apply</button>
+    </div>
   </template>
-  
-  <template id="todo">
+
+  <template id="todo-preview">
     <div>
       <p>{title}</p>
-      <label><input type="checkbox" checked="{isDone}" tb-action="click:toggleDone" name="done">Done</label>
+      <label><input type="checkbox" tb-bind="isDone:checked" tb-action="click:toggleDone" name="done">Done</label>
       <button tb-action="click:setEditing">edit</button>
       <button tb-action="click:deleteTodo">delete</button>
     </div>
+  </template>
+  
+  <template id="todo">
+    <tb-render unless="isEditing" template="todo-preview"></tb-render>
+    <tb-render if="isEditing" template="edit-todo"></tb-render>
   </template>
 
   <template id='list'>
@@ -73,17 +54,15 @@
     </style>
     <div>
       <h2>{name}</h2>
-      <tb-form submitEvent="addNewTodo">
-        <div class="input-form">
-          <label for="newTitle">New Todo</label>
-          <div class="input">
-            <input id="newTitle" name="newTitle" type="text" tb-action="keyup:newTodoChange">
-            <button type="submit">Add</button>
-          </div>
+      <div class="input-form">
+        <label for="newTitle">New Todo</label>
+        <div class="input">
+          <input id="newTitle" tb-bind-prop="newTitle:value" name="newTitle" type="text" tb-action="keyup:setNewTitle">
+          <button tb-action="click:addNewTodo" type="submit">Add</button>
         </div>
-      </tb-form>
+      </div>
       <h2>Todos:</h2>
-      <tb-render model="todos" template="todo"></tb-render>
+      <tb-render model="visibleTodos" template="todo"></tb-render>
       <button tb-action="click:toggleAll">All</button>
       <button tb-action="click:deleteList">delete</button>
     </div>
@@ -120,27 +99,51 @@
     </div>
   </template>
 
-  <div id="main">
-    <h1>Turbo Todo</h1>
+  <template id="todoApp">
+    <style>
+      .input-form {
+        display: flex;
+        flex-direction: column;
+      }
+      .input-form * {
+        margin-bottom: 10px;
+      }
+      
+      #content {
+        display: flex;
+      }
+
+      #left-panel {
+        min-width: 400px;
+        margin-right: 20px;
+      }
+
+      #right-panel {
+        min-width: 500px;
+      }
+    </style>
 
     <div id="content">
       <div id="left-panel">
-        <tb-form submitEvent="addTodoList" model="lists">
-          <div class="input-form">
-            <label for="name">List Name</label>
-            <input type="text" id="name" name="name">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="5"></textarea>
-            <button type="submit">Add</button>
-          </div>
-        </tb-form>
-        <tb-render model="lists.visibleLists" template="list-preview"></tb-render>
+        <div class="input-form">
+          <label for="name">List Name</label>
+          <input tb-bind-prop="name:value" tb-action="keyup:setName" type="text" id="name" name="name">
+          <label for="description">Description</label>
+          <textarea tb-bind-prop="description:value" tb-action="keyup:setDescription" id="description" name="description" rows="5"></textarea>
+          <button tb-action="click:addTodoList">Add</button>
+        </div>
+        <tb-render model="visibleLists" template="list-preview"></tb-render>
       </div>
 
       <div id="right-panel">
-        <tb-render model="lists.selectedList" template="list"></tb-render>
+        <tb-render model="selectedList" template="list"></tb-render>
       </div>
     </div>
+  </template>
+
+  <div id="main">
+    <h1>Turbo Todo</h1>
+    <tb-render template="todoApp" model="lists"></tb-render>
   </div>
 </body>
 </html>

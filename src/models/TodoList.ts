@@ -57,16 +57,20 @@ export default class TodoList {
   }
 
   @action
-  addNewTodo ({ newTitle }: { newTitle: string }) {
-    console.log('addNewTodo', { newTitle });
-    this.newTitle = '';
-    const todo = new Todo({ title: newTitle, date: new Date(), id: this.todos.length.toString() });
+  setNewTitle ({ value }: { value: string }) {
+    this.newTitle = value;
+  }
+
+  @action
+  addNewTodo () {
+    const todo = new Todo({ title: this.newTitle, date: new Date(), id: this.todos.length.toString() });
     this.todos.push(todo);
+    this.newTitle = '';
   }
 
   @action
   toggleAll () {
-    this.todos.forEach(todo => todo.editTodo({ isDone: !todo.isDone }));
+    this.todos.forEach(todo => todo.isDone = !todo.isDone);
   }
 
   @action
