@@ -62,7 +62,7 @@
         </div>
       </div>
       <h2>Todos:</h2>
-      <tb-render model="visibleTodos" template="todo"></tb-render>
+      <tb-render repeat model="visibleTodos" template="todo"></tb-render>
       <button tb-action="click:toggleAll">All</button>
       <button tb-action="click:deleteList">delete</button>
     </div>
@@ -132,7 +132,7 @@
           <textarea tb-bind-prop="description:value" tb-action="keyup:setDescription" id="description" name="description" rows="5"></textarea>
           <button tb-action="click:addTodoList">Add</button>
         </div>
-        <tb-render model="visibleLists" template="list-preview"></tb-render>
+        <tb-render repeat model="visibleLists" template="list-preview"></tb-render>
       </div>
 
       <div id="right-panel">
