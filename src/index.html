@@ -140,9 +140,14 @@
       </div>
 
       <div id="right-panel">
-        <tb-route path="/todo-list/:id" action="selectList">
-          <tb-render model="selectedList" template="list"></tb-render>
-        </tb-route>
+        <tb-switch>
+          <tb-route path="/todo-list/:id" action="selectList">
+            <tb-render model="selectedList" template="list"></tb-render>
+          </tb-route>
+          <tb-route path="/" action="selectList">
+            <p>Create a todo list to see it</p>
+          </tb-route>
+        </tb-switch>
       </div>
     </div>
   </template>
