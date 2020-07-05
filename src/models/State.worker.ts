@@ -58,6 +58,13 @@ class ListCollection {
     this.allLists = this.visibleLists;
   }
 
+  @action
+  selectList ({ params: { id }}: { params: { id: string }}) {
+    this.allLists.forEach(list => {
+      list.isSelected = list.id === id;
+    })
+  }
+
   @computed
   get selectedList () {
     return this.allLists.find(list => list.isSelected);

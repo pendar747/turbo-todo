@@ -11,7 +11,8 @@ module.exports = [{
     open: true,
     index: 'index.html',
     contentBase: path.join(__dirname, 'dist'),
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -37,5 +38,6 @@ module.exports = [{
   output: {
     filename: '[hash].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   }
 }];

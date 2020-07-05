@@ -84,7 +84,7 @@
         color: darkgray;
       }
       .view-list {
-        font-size: 10px;
+        font-size: 17px;
       }
       .selected {
         background-color: lightblue;
@@ -95,8 +95,12 @@
         <div class="name">{name}</div>
         <div class="description">{description}</div>
       </div>
-      <button class="view-list" tb-action="click:viewList">view</button>
+      <a class="view-list" href="/todo-list/{id}">View</a>
     </div>
+  </template>
+
+  <template page-path="/todo-list/{:id}">
+    <tb-render model="lists.selectedList" template="list"></tb-render>
   </template>
 
   <template id="todoApp">
@@ -136,14 +140,29 @@
       </div>
 
       <div id="right-panel">
-        <tb-render model="selectedList" template="list"></tb-render>
+        <tb-route path="/todo-list/:id" action="selectList">
+          <tb-render model="selectedList" template="list"></tb-render>
+        </tb-route>
       </div>
     </div>
   </template>
 
-  <div id="main">
+  <template id="main">
+    <a href="/about">About</a>
+    <a href="/">Home</a>
     <h1>Turbo Todo</h1>
-    <tb-render template="todoApp" model="lists"></tb-render>
+    <tb-switch>
+      <tb-route path="/about">
+        <div>This is a todo App that's made with Turbo.</div>
+      </tb-route>
+      <tb-route path="/">
+        <tb-render template="todoApp" model="lists"></tb-render>
+      </tb-route>
+    </tb-switch>
+  </template>
+
+  <div id="main">
+    <tb-render model="" template="main"></tb-render>
   </div>
 </body>
 </html>
