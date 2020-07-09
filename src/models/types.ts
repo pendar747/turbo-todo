@@ -1,7 +1,10 @@
 export interface ITodo {
   title: string,
   date: Date,
-  id: string
+  id: string,
+  isDone: boolean,
+  isDeleted: boolean
+  listId: string
 }
 
 export interface IList {
@@ -9,5 +12,6 @@ export interface IList {
   description: string,
   date: Date,
   id: string,
-  todos: ITodo[]
+  todos: ITodo[],
+  isDeleted: boolean
 }

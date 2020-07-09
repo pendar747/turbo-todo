@@ -1,8 +1,10 @@
-import { observable, action, computed, autorun } from "mobx";
+import { observable, action, computed, autorun, toJS } from "mobx";
 import Todo from "./Todo";
 import { IList } from "./types";
+import db from "./db";
+import uniqueId from 'lodash/uniqueId';
 
-export default class TodoList {
+export default class TodoList implements IList {
   @observable
   newTitle = '';
 
@@ -63,9 +65,17 @@ export default class TodoList {
 
   @action
   addNewTodo () {
-    const todo = new Todo({ title: this.newTitle, date: new Date(), id: this.todos.length.toString() });
+    const todo = new Todo({ 
+      title: this.newTitle, 
+      date: new Date(), 
+      id: uniqueId(),
+      isDeleted: false,
+      isDone: false,
+      listId: this.id
+    });
     this.todos.push(todo);
     this.newTitle = '';
+    todo.save();
   }
 
   @action
@@ -76,5 +86,20 @@ export default class TodoList {
   @action
   deleteList () {
     this.isDeleted = true;
+  }
+
+  save () {
+    return db.lists.put({
+      date: this.date,
+      description: this.description,
+      id: this.id,
+      isDeleted: this.isDeleted,
+      name: this.name
+    }, this.id);
+  }
+
+  async loadTodos () {
+    const todos = await db.todos.where('listId').equals(this.id).toArray();
+    this.todos = todos.map(todo => new Todo(todo));
   }
 }
