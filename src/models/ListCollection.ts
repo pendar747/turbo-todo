@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import TodoList from './TodoList';
 import db from './db';
-import uniqueId from 'lodash/uniqueId';
+import shortId from 'shortid';
 
 export default class ListCollection {
   @observable
@@ -29,7 +29,6 @@ export default class ListCollection {
   async loadAllLists () {
     if (!this.hasLoaded) {
       const lists = await db.lists.toArray();
-      console.log(lists);
       this.allLists = lists.map(listProps => {
         return new TodoList({ ...listProps, todos: [] }, this.select);
       });
@@ -42,7 +41,7 @@ export default class ListCollection {
   async addTodoList () {
     const list = new TodoList({ 
       name: this.name, 
-      id: uniqueId(), 
+      id: shortId(), 
       date: new Date(), 
       todos: [],
       description: this.description,

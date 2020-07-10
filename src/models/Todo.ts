@@ -1,7 +1,6 @@
 import { observable, action } from "mobx";
 import { ITodo } from "./types";
 import db from "./db";
-import pick from 'lodash/pick';
 
 export default class Todo implements ITodo {
   @observable
@@ -34,17 +33,21 @@ export default class Todo implements ITodo {
     this.id = props.id;
     this.date = props.date;
     this.listId = props.listId;
+    this.isDeleted = props.isDeleted;
+    this.isDone = props.isDone;
   }
 
   @action
   editTodo () {
     this.title = this.draftTitle;
     this.isEditing = false;
+    this.save();
   }
 
   @action
   toggleDone () {
     this.isDone = !this.isDone;
+    this.save();
   }
 
   @action
@@ -66,6 +69,7 @@ export default class Todo implements ITodo {
   @action 
   deleteTodo () {
     this.isDeleted = true;
+    this.save();
   }
   
   save () {

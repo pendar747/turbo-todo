@@ -2,7 +2,7 @@ import { observable, action, computed, autorun, toJS } from "mobx";
 import Todo from "./Todo";
 import { IList } from "./types";
 import db from "./db";
-import uniqueId from 'lodash/uniqueId';
+import shortId from 'shortid';
 
 export default class TodoList implements IList {
   @observable
@@ -36,6 +36,7 @@ export default class TodoList implements IList {
     this.description = props.description;
     this.date = props.date; 
     this.select = select;
+    this.isDeleted = props.isDeleted;
   }
 
   @computed
@@ -61,6 +62,7 @@ export default class TodoList implements IList {
   @action
   setNewTitle ({ value }: { value: string }) {
     this.newTitle = value;
+    this.save();
   }
 
   @action
@@ -68,7 +70,7 @@ export default class TodoList implements IList {
     const todo = new Todo({ 
       title: this.newTitle, 
       date: new Date(), 
-      id: uniqueId(),
+      id: shortId(),
       isDeleted: false,
       isDone: false,
       listId: this.id
@@ -80,12 +82,16 @@ export default class TodoList implements IList {
 
   @action
   toggleAll () {
-    this.todos.forEach(todo => todo.isDone = !todo.isDone);
+    this.todos.forEach(todo => {
+      todo.isDone = !todo.isDone
+      todo.save();
+    });
   }
 
   @action
   deleteList () {
     this.isDeleted = true;
+    this.save();
   }
 
   save () {

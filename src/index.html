@@ -57,7 +57,7 @@
       <div class="input-form">
         <label for="newTitle">New Todo</label>
         <div class="input">
-          <input id="newTitle" tb-bind-prop="newTitle:value" name="newTitle" type="text" tb-action="keyup:setNewTitle">
+          <input id="newTitle" tb-bind-prop="newTitle:value" name="newTitle" type="text" tb-action="change:setNewTitle">
           <button tb-action="click:addNewTodo" type="submit">Add</button>
         </div>
       </div>
