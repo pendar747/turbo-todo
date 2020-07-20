@@ -3,30 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Turbo Todo</title>
+  <title>Pernix Todo</title>
 </head>
 <body state="main">
   
   <template id="edit-todo">
     <div>
-      <input tb-bind-prop="draftTitle:value" tb-action="keyup:setDraftTitle" type="text" name="title">
-      <button tb-action="click:cancelEditing">Cancel</button>
-      <button tb-action="click:editTodo" type="submit">Apply</button>
+      <input px-bind-prop="draftTitle:value" px-action="keyup:setDraftTitle" type="text" name="title">
+      <button px-action="click:cancelEditing">Cancel</button>
+      <button px-action="click:editTodo" type="submit">Apply</button>
     </div>
   </template>
 
   <template id="todo-preview">
     <div>
       <p>{title}</p>
-      <label><input type="checkbox" tb-bind="isDone:checked" tb-action="click:toggleDone" name="done">Done</label>
-      <button tb-action="click:setEditing">edit</button>
-      <button tb-action="click:deleteTodo">delete</button>
+      <label><input type="checkbox" px-bind="isDone:checked" px-action="click:toggleDone" name="done">Done</label>
+      <button px-action="click:setEditing">edit</button>
+      <button px-action="click:deleteTodo">delete</button>
     </div>
   </template>
   
   <template id="todo">
-    <tb-render unless="isEditing" template="todo-preview"></tb-render>
-    <tb-render if="isEditing" template="edit-todo"></tb-render>
+    <px-render unless="isEditing" template="todo-preview"></px-render>
+    <px-render if="isEditing" template="edit-todo"></px-render>
   </template>
 
   <template id='list'>
@@ -57,14 +57,14 @@
       <div class="input-form">
         <label for="newTitle">New Todo</label>
         <div class="input">
-          <input id="newTitle" tb-bind-prop="newTitle:value" name="newTitle" type="text" tb-action="change:setNewTitle">
-          <button tb-action="click:addNewTodo" type="submit">Add</button>
+          <input id="newTitle" px-bind-prop="newTitle:value" name="newTitle" type="text" px-action="change:setNewTitle">
+          <button px-action="click:addNewTodo" type="submit">Add</button>
         </div>
       </div>
       <h2>Todos:</h2>
-      <tb-render repeat model="visibleTodos" template="todo"></tb-render>
-      <button tb-action="click:toggleAll">All</button>
-      <button tb-action="click:deleteList">delete</button>
+      <px-render repeat model="visibleTodos" template="todo"></px-render>
+      <button px-action="click:toggleAll">All</button>
+      <button px-action="click:deleteList">delete</button>
     </div>
   </template>
 
@@ -87,10 +87,10 @@
         font-size: 17px;
       }
       .selected {
-        background-color: lightblue;
+        background-color: lighpxlue;
       }
     </style>
-    <div tb-class="isSelected:selected" id="list-preview">
+    <div px-class="isSelected:selected" id="list-preview">
       <div>
         <div class="name">{name}</div>
         <div class="description">{description}</div>
@@ -100,7 +100,7 @@
   </template>
 
   <template page-path="/todo-list/{:id}">
-    <tb-render model="lists.selectedList" template="list"></tb-render>
+    <px-render model="lists.selectedList" template="list"></px-render>
   </template>
 
   <template id="todoApp">
@@ -131,23 +131,23 @@
       <div id="left-panel">
         <div class="input-form">
           <label for="name">List Name</label>
-          <input tb-bind-prop="name:value" tb-action="keyup:setName" type="text" id="name" name="name">
+          <input px-bind-prop="name:value" px-action="keyup:setName" type="text" id="name" name="name">
           <label for="description">Description</label>
-          <textarea tb-bind-prop="description:value" tb-action="keyup:setDescription" id="description" name="description" rows="5"></textarea>
-          <button tb-action="click:addTodoList">Add</button>
+          <textarea px-bind-prop="description:value" px-action="keyup:setDescription" id="description" name="description" rows="5"></textarea>
+          <button px-action="click:addTodoList">Add</button>
         </div>
-        <tb-render repeat model="visibleLists" template="list-preview"></tb-render>
+        <px-render repeat model="visibleLists" template="list-preview"></px-render>
       </div>
 
       <div id="right-panel">
-        <tb-switch>
-          <tb-route path="/todo-list/:id" action="selectList">
-            <tb-render model="selectedList" template="list"></tb-render>
-          </tb-route>
-          <tb-route path="/" action="selectList">
+        <px-switch>
+          <px-route path="/todo-list/:id" action="selectList">
+            <px-render model="selectedList" template="list"></px-render>
+          </px-route>
+          <px-route path="/" action="selectList">
             <p>Create a todo list to see it</p>
-          </tb-route>
-        </tb-switch>
+          </px-route>
+        </px-switch>
       </div>
     </div>
   </template>
@@ -155,19 +155,19 @@
   <template id="main">
     <a href="/about">About</a>
     <a href="/">Home</a>
-    <h1>Turbo Todo</h1>
-    <tb-switch>
-      <tb-route path="/about">
-        <div>This is a todo App that's made with Turbo.</div>
-      </tb-route>
-      <tb-route path="/">
-        <tb-render template="todoApp" model="lists"></tb-render>
-      </tb-route>
-    </tb-switch>
+    <h1>Pernix Todo</h1>
+    <px-switch>
+      <px-route path="/about">
+        <div>This is a todo App that's made with Pernix.</div>
+      </px-route>
+      <px-route path="/">
+        <px-render template="todoApp" model="lists"></px-render>
+      </px-route>
+    </px-switch>
   </template>
 
   <div id="main">
-    <tb-render model="" template="main"></tb-render>
+    <px-render model="" template="main"></px-render>
   </div>
 </body>
 </html>

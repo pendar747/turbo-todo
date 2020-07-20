@@ -1,7 +1,7 @@
 import { observable } from 'mobx';
 
 import TodoList from './TodoList';
-import { registerState } from '@pendar/turbo/src/modelAdapters/mobX/index';
+import { registerState } from '@pernix/mobx-adapter';
 import ListCollection from './ListCollection';
 
 

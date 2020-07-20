@@ -1,6 +1,6 @@
-import { runState } from '@pendar/turbo/src/modelAdapters/mobX/index';
+import { runState } from '@pernix/mobx-adapter';
 import State from './models/State.worker';
-import '@pendar/turbo';
+import '@pernix/core';
 
 const stateWorker = new State() as unknown as Worker;
 runState(stateWorker, 'main');

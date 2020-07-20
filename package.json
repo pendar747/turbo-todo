@@ -1,9 +1,9 @@
 {
-  "name": "turbo-todo",
+  "name": "pernix-todo",
   "version": "0.0.1",
-  "description": "A sample todo application build using Turbo",
+  "description": "A sample todo application build using Pernix",
   "main": "index.js",
-  "repository": "git@github.com:pendar747/turbo-todo.git",
+  "repository": "git@github.com:pendar747/pernix-todo.git",
   "author": "pendar747",
   "license": "MIT",
   "private": false,
@@ -12,7 +12,8 @@
     "start": "webpack-dev-server --watch"
   },
   "dependencies": {
-    "@pendar/turbo": "^0.0.1",
+    "@pernix/core": "^0.2.2",
+    "@pernix/mobx-adapter": "^0.0.5",
     "@types/shortid": "^0.0.29",
     "@types/uuid": "^7.0.3",
     "dexie": "^3.0.1",
